@@ -39,7 +39,7 @@ class SampleAttribute extends CActiveRecord
 		return array(
 			array('sample_id, attribute_id', 'required'),
 			array('sample_id, attribute_id', 'numerical', 'integerOnly'=>true),
-			array('value', 'length', 'max'=>200),
+			array('value', 'length', 'max'=>5000),
 			array('unit_id', 'length', 'max'=>30),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

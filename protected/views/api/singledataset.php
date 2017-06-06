@@ -1,5 +1,4 @@
 <?php
-header("Content-Type: text/xml");
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 $xml.="<gigadb_entry>\n";
 $xml.=" <dataset id=\"$model->id\" doi=\"$model->identifier\">\n";
@@ -290,4 +289,12 @@ $xml.=" </files>\n";
 $xml.="</gigadb_entry>";
 $xml=preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $xml);
 $output= simplexml_load_string($xml);
+if($flag == 'json')
+{
+header("Content-Type: application/json");    
+$Json = json_encode($output);   
+echo $Json;    
+}else{
+header("Content-Type: text/xml");
 echo $output->asXML();
+}

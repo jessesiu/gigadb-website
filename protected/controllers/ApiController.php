@@ -61,9 +61,14 @@ else
                 $id = Yii::app()->request->getParam('id');
                 $doi= Yii::app()->request->getParam('doi');
                 $result= Yii::app()->request->getParam('result');
+                $flag= Yii::app()->request->getParam('flag');
                 if(!isset($result))
                 {
                   $result='all'; 
+                }
+                if(!isset($flag))
+                {
+                  $result='xml'; 
                 }
                 if(isset($id))
                 {
@@ -121,7 +126,7 @@ else
                         case "all":
                             
                             $this->renderPartial('singledataset',array(
-                            'model'=>$model,));
+                            'model'=>$model,'flag'=>$flag));
                             break;
 
                         default:
