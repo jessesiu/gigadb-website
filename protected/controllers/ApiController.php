@@ -68,7 +68,7 @@ else
                 }
                 if(!isset($flag))
                 {
-                  $result='xml'; 
+                  $flag='xml'; 
                 }
                 if(isset($id))
                 {
