@@ -62,6 +62,20 @@ else
                 $doi= Yii::app()->request->getParam('doi');
                 $result= Yii::app()->request->getParam('result');
                 $flag= Yii::app()->request->getParam('flag');
+                $limit= Yii::app()->request->getParam('limit');
+                $offset= Yii::app()->request->getParam('offset');
+                
+                if(!isset($limit))
+                {
+                    $limit=20;
+                    
+                }
+                if(!isset($offset))
+                {
+                    $offset=0;
+                }
+                
+                
                 if(!isset($result))
                 {
                   $result='all'; 
@@ -116,17 +130,17 @@ else
                         case "sample":
                           
                             $this->renderPartial('singlesample',array(
-                            'model'=>$model,));
+                            'model'=>$model,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "file":
                             
                             $this->renderPartial('singlefile',array(
-                            'model'=>$model,));
+                            'model'=>$model,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "all":
                             
                             $this->renderPartial('singledataset',array(
-                            'model'=>$model,'flag'=>$flag));
+                            'model'=>$model,'flag'=>$flag,'limit'=>$limit,'offset'=>$offset));
                             break;
 
                         default:

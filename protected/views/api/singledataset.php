@@ -183,7 +183,12 @@ $xml.=" </dataset>\n";
 //samples
 $xml.=" <samples>\n";
 $samples=$model->samples;
+$sample_no=0;
 foreach($samples as $sample){
+    if($sample_no > $limit)
+    {
+        break;
+    }
     $xml.="  <sample submission_date=\"$sample->submission_date\" id=\"$sample->id\">\n";
     $xml.="   <name>$sample->name</name>\n";
     $species=$sample->species;
@@ -230,9 +235,7 @@ foreach($samples as $sample){
     
   
     $xml.="  </sample>\n";
-    
-    
-    
+    $sample_no++;
     }
 $xml.=" </samples>\n";
 //experiment
@@ -241,7 +244,12 @@ $xml.=" </experiments>\n";
 //file
 $files=$model->files;
 $xml.=" <files>\n";
+$file_no=0;
 foreach($files as $file){
+if($file_no>$limit)
+{
+    break;
+}
 $xml.="  <file id=\"$file->id\" index4blast=\"$file->index4blast\" download_count=\"$file->download_count\" >\n";
 $xml.="   <name>$file->name</name>\n";
 $xml.="   <location>$file->location</location>\n";
@@ -284,6 +292,7 @@ foreach($fileattributes as $fileattribute){
 $xml.="   </file_attributes>\n";
 $xml.="   <related_file></related_file>\n";
 $xml.="  </file>\n";
+$file_no++;
 }
 $xml.=" </files>\n";
 $xml.="</gigadb_entry>";
