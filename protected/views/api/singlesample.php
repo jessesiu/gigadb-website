@@ -8,8 +8,13 @@ $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 $xml.="<gigadb_entry>";
 //samples
 $xml.="<samples>";
-$samples=$model->samples;
+$samples=$model->samples(array('offset'=>$offset,'limit'=>$limit));
+$sample_no=1;
 foreach($samples as $sample){
+    if($sample_no > $limit)
+        {
+            break;
+        }
     $xml.="<sample submission_date=\"$sample->submission_date\" id=\"$sample->id\">";
     $xml.="<name>$sample->name</name>";
     $species=$sample->species;
@@ -56,7 +61,7 @@ foreach($samples as $sample){
     
   
     $xml.="</sample>";
-    
+    $sample_no++;
     
     
     }

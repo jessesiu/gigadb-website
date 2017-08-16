@@ -79,6 +79,7 @@ if(isset($external_links)){
 foreach($external_links as $external_link)
 {
     $external_link_type=  ExternalLinkType::model()->findByAttributes(array('id'=>$external_link->external_link_type_id));
+    $external_link->url=htmlspecialchars($external_link->url, ENT_XML1, 'UTF-8');
     $xml.="    <external_link type=\"$external_link_type->name\">$external_link->url</external_link>\n";
     
 }
@@ -180,10 +181,10 @@ foreach($dataset_attributes as $dataset_attribute)
 }
 $xml.="  </ds_attributes>\n";
 $xml.=" </dataset>\n";
-//samples
+//samples 
 $xml.=" <samples>\n";
-$samples=$model->samples;
-$sample_no=0;
+$samples=$model->samples(array('offset'=>$offset,'limit'=>$limit));
+$sample_no=1;
 foreach($samples as $sample){
     if($sample_no > $limit)
     {
@@ -222,6 +223,7 @@ foreach($samples as $sample){
         $saattribute=  Attribute::model()->findByAttributes(array('id'=>$sa_attribute->attribute_id));
         $xml.="    <attribute>\n";
         $xml.="     <key>$saattribute->attribute_name</key>\n";
+        $sa_attribute->value=preg_replace('/[<>]/', '', $sa_attribute->value);
         $xml.="     <value>$sa_attribute->value</value>\n";
         $sample_unit=  Unit::model()->findByAttributes(array('id'=>$sa_attribute->unit_id));
         if(isset($sample_unit)){
@@ -242,9 +244,9 @@ $xml.=" </samples>\n";
 $xml.=" <experiments>\n";
 $xml.=" </experiments>\n";
 //file
-$files=$model->files;
+$files=$model->files(array('offset'=>$offset,'limit'=>$limit));
 $xml.=" <files>\n";
-$file_no=0;
+$file_no=1;
 foreach($files as $file){
 if($file_no>$limit)
 {

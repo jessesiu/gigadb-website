@@ -3,9 +3,14 @@ header("Content-Type: text/xml");
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 $xml.="<gigadb_entry>";
 //file
-$files=$model->files;
+$files=$model->files(array('offset'=>$offset,'limit'=>$limit));
+$file_no=1;
 $xml.="<files>";
 foreach($files as $file){
+if($file_no>$limit)
+{
+    break;
+}
 $xml.="<file id=\"$file->id\" index4blast=\"$file->index4blast\" download_count=\"$file->download_count\" >";
 $xml.="<name>$file->name</name>";
 $xml.="<location>$file->location</location>";
@@ -48,6 +53,7 @@ foreach($fileattributes as $fileattribute){
 $xml.="</file_attributes>";
 $xml.="<related_file></related_file>";
 $xml.="</file>";
+$file_no++;
 }
 $xml.="</files>";
 $xml.="</gigadb_entry>";
