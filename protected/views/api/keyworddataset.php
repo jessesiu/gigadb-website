@@ -1,9 +1,16 @@
 <?php
 header('Content-Type: text/xml');
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-$xml.="<gigadb_entrys>";
+$total_size= count($models);
+$xml.="<gigadb_entrys total_dataset_num=\"$total_size\">";
+$dataset_no=1;
+$models= array_slice($models, $offset);
 foreach($models as $model)
 {
+if($dataset_no>$limit)
+{
+    break;
+}
 $xml.="<gigadb_entry>";    
 $xml.="<dataset id=\"$model->id\" doi=\"$model->identifier\">";
 $submitter_id=$model->submitter->id;
@@ -186,6 +193,7 @@ foreach($dataset_attributes as $dataset_attribute)
 $xml.="</ds_attributes>";
 $xml.="</dataset>";
 $xml.="</gigadb_entry>";
+$dataset_no++;
 }
 $xml.="</gigadb_entrys>";
 $xml=preg_replace('/&(?!#?[a-z0-9]+;)/', '&amp;', $xml);

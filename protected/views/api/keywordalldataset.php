@@ -2,9 +2,15 @@
 header('Content-Type: text/xml');
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 $xml.="<gigadb_entrys>";
-if(!empty($datasetids)){  
+if(!empty($datasetids)){
+$dataset_no=1;
+$datasetids=array_slice($datasetids,$offset);   
 foreach($datasetids as $datasetid)
 {
+if($dataset_no>$limit)
+{
+    break;
+}        
 $xml.='<gigadb_entry>';      
 $model=  Dataset::model()->findByPk($datasetid);
 $xml.="<dataset id=\"$model->id\" doi=\"$model->identifier\">";
@@ -187,6 +193,7 @@ foreach($dataset_attributes as $dataset_attribute)
 $xml.="</ds_attributes>";
 $xml.="</dataset>"; 
 $xml.='</gigadb_entry>'; 
+$dataset_no++;
 }    
 }  
 

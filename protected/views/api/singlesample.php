@@ -7,7 +7,8 @@ header("Content-Type: text/xml");
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 $xml.="<gigadb_entry>";
 //samples
-$xml.="<samples>";
+
+$xml.="<samples total=\"$model->samples_num\">";
 $samples=$model->samples(array('offset'=>$offset,'limit'=>$limit));
 $sample_no=1;
 foreach($samples as $sample){

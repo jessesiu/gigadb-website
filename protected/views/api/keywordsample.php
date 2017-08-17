@@ -1,13 +1,19 @@
 <?php
 header("Content-Type: text/xml");
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-$xml.="<gigadb_entrys>";
+$total_size= count($models);
+$xml.="<gigadb_entrys total_sample_num=\"$total_size\">";
 foreach($models as $model)
 {
 $xml.="<gigadb_entry>";    
 $xml.="<samples>";
-$samples=$model->samples;
+$samples=$model->samples(array('offset'=>$offset,'limit'=>$limit));
+$sample_no=1;
 foreach($samples as $sample){
+    if($sample_no > $limit)
+    {
+        break;
+    }
     $xml.="<sample submission_date=\"$sample->submission_date\" id=\"$sample->id\" doi=\"$model->identifier\">";
     $xml.="<name>$sample->name</name>";
     $species=$sample->species;
@@ -51,6 +57,7 @@ foreach($samples as $sample){
     }
     $xml.="</sample_attributes>";
     $xml.="</sample>";
+    $sample_no++;
     }
 $xml.="</samples>";
 $xml.="</gigadb_entry>";

@@ -2,11 +2,17 @@
 ini_set('max_execution_time',300);
 header('Content-Type: text/xml');
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-$xml.="<gigadb_entrys>";
+$total_size= count($datasetids);
+$xml.="<gigadb_entrys total_dataset_num=\"$total_size\">";
 if(!empty($datasetids)){
- 
+$dataset_no=1;
+$datasetids=array_slice($datasetids,$offset);   
 foreach($datasetids as $datasetid)
 {
+if($dataset_no>$limit)
+{
+    break;
+}      
 $xml.='<gigadb_entry>';   
 $model=  Dataset::model()->findByPk($datasetid);
 $xml.="<dataset id=\"$model->id\" doi=\"$model->identifier\">";
@@ -306,16 +312,23 @@ $xml.="</file>";
 $xml.='</files>';
 
 
-$xml.='</gigadb_entry>';  
+$xml.='</gigadb_entry>';
+$dataset_no++;
 }      
 }  
 
 
 
 if(!empty($sampleids)){
-$xml.='<samples>'; 
+$xml.='<samples>';
+$sample_no=1;
+$sampleids=array_slice($sampleids,$offset);  
 foreach($sampleids as $sampleid)
 {
+if($sample_no>$limit)
+{
+    break;
+}     
 $sample=  Sample::model()->findByPK($sampleid);
 $datasetid;
 foreach($sample->datasets as $dataset)
@@ -365,14 +378,21 @@ foreach($sample->datasets as $dataset)
     }
     $xml.="</sample_attributes>";
     $xml.="</sample>";
+    $sample_no++;
     }
 $xml.="</samples>";
 }
 
 
 if(!empty($fileids)){
+$file_no=1;
+$fileids=array_slice($fileids,$offset);    
 $xml.='<files>';   
 foreach($fileids as $fileid){
+if($file_no>$limit)
+{
+    break;
+}    
 $file=  File::model()->findByPK($fileid);
 $dataset=  Dataset::model()->findByPK($file->dataset_id);
 $xml.="<file id=\"$file->id\" doi=\"$dataset->identifier\" index4blast=\"$file->index4blast\" download_count=\"$file->download_count\" >";
@@ -420,6 +440,7 @@ $xml.="</file_attributes>";
 $xml.="<related_file></related_file>";
 
 $xml.="</file>";
+$file_no++;
 }   
     
 $xml.='</files>';     

@@ -3,8 +3,14 @@ header('Content-Type: text/xml');
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 $xml.="<gigadb_entrys>";
 if(!empty($sampleids)){
+$sample_no=1;
+$sampleids=array_slice($sampleids,$offset);    
 foreach($sampleids as $sampleid)
 {
+if($sample_no>$limit)
+{
+    break;
+}        
 $sample=  Sample::model()->findByPK($sampleid);
 $datasetid;
 foreach($sample->datasets as $dataset)
@@ -56,6 +62,7 @@ foreach($sample->datasets as $dataset)
     $xml.="</sample_attributes>";
     $xml.="</sample>";
     $xml.="</gigadb_entry>";
+    $sample_no++;
     }
 }
 

@@ -7,9 +7,14 @@ foreach($models as $model)
 
 $xml.="<gigadb_entry id=\"$model->id\" doi=\"$model->identifier\">";
 
-$files=$model->files;
+$files=$model->files(array('offset'=>$offset,'limit'=>$limit));
+$file_no=1;
 $xml.="<files>";
 foreach($files as $file){
+if($file_no>$limit)
+{
+    break;
+}
 $xml.="<file id=\"$file->id\" index4blast=\"$file->index4blast\" download_count=\"$file->download_count\" >";
 $xml.="<name>$file->name</name>";
 $xml.="<location>$file->location</location>";
@@ -55,6 +60,7 @@ $xml.="</file_attributes>";
 $xml.="<related_file></related_file>";
 
 $xml.="</file>";
+$file_no++;
 
 
 }

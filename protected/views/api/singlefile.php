@@ -3,9 +3,9 @@ header("Content-Type: text/xml");
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 $xml.="<gigadb_entry>";
 //file
-$files=$model->files(array('offset'=>$offset,'limit'=>$limit));
+$files=$model->files(array('offset'=>$offset,'limit'=>$limit,'order'=>'id DESC'));
 $file_no=1;
-$xml.="<files>";
+$xml.="<files total=\"$model->files_num\">";
 foreach($files as $file){
 if($file_no>$limit)
 {

@@ -1,9 +1,16 @@
 <?php
 header('Content-Type: text/xml');
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-$xml.="<gigadb_entrys>";
-if(!empty($fileids)){ 
+$total_size= count($models);
+$xml.="<gigadb_entrys total_file_num=\"$total_size\">";
+if(!empty($fileids)){    
+$file_no=1;
+$fileids=array_slice($fileids,$offset);
 foreach($fileids as $fileid){
+if($file_no>$limit)
+{
+    break;
+}    
 $file=  File::model()->findByPK($fileid);
 $dataset=  Dataset::model()->findByPK($file->dataset_id);
 $xml.="<gigadb_entry>";
@@ -53,6 +60,7 @@ $xml.="</file_attributes>";
 $xml.="<related_file></related_file>";
 
 $xml.="</file>";
+$file_no++;
 $xml.="</gigadb_entry>";
 }   
     

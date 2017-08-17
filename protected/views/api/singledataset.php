@@ -182,7 +182,8 @@ foreach($dataset_attributes as $dataset_attribute)
 $xml.="  </ds_attributes>\n";
 $xml.=" </dataset>\n";
 //samples 
-$xml.=" <samples>\n";
+
+$xml.=" <samples total=\"$model->samples_num\">\n";
 $samples=$model->samples(array('offset'=>$offset,'limit'=>$limit));
 $sample_no=1;
 foreach($samples as $sample){
@@ -244,8 +245,9 @@ $xml.=" </samples>\n";
 $xml.=" <experiments>\n";
 $xml.=" </experiments>\n";
 //file
+
 $files=$model->files(array('offset'=>$offset,'limit'=>$limit));
-$xml.=" <files>\n";
+$xml.=" <files size=\"$model->files_num\">\n";
 $file_no=1;
 foreach($files as $file){
 if($file_no>$limit)

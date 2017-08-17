@@ -65,9 +65,9 @@ else
                 $limit= Yii::app()->request->getParam('limit');
                 $offset= Yii::app()->request->getParam('offset');
                 
-                if(!isset($limit))
+                if(!isset($limit) || $limit>100)
                 {
-                    $limit=20;
+                    $limit=100;
                     
                 }
                 if(!isset($offset))
@@ -188,11 +188,23 @@ else
                 $status='Published';
 		$id = Yii::app()->request->getParam('id');
                 $doi= Yii::app()->request->getParam('doi');
+                $limit= Yii::app()->request->getParam('limit');
+                $offset= Yii::app()->request->getParam('offset');
+                
+                if(!isset($limit) || $limit>100)
+                {
+                    $limit=100;
+                    
+                }
+                if(!isset($offset))
+                {
+                    $offset=0;
+                }
                 if(isset($id))
                 {
                                     
                    try{
-                   $model=  Dataset::model()->findByAttributes(array('id'=>$id,'upload_status'=>$status));}
+                   $model=  Dataset::model()->findByAttributes(array('id'=>$id,'upload_status'=>$status,'order'=>'id DESC'));}
                    catch(CDbException $e)
                    {
                              ob_end_clean();
@@ -210,7 +222,7 @@ else
                     $this->redirect(array("api/dataset?doi=$doi&result=file")); 
                   //$this->redirect(array('api/dataset','doi'=>$doi,'result'=>'file')); 
                    try{ 
-                   $model=  Dataset::model()->findByAttributes(array('identifier'=>$doi,'upload_status'=>$status));}
+                   $model=  Dataset::model()->findByAttributes(array('identifier'=>$doi,'upload_status'=>$status,'order'=>'id DESC'));}
                    catch(CDbException $e)
                    {
                             ob_end_clean();
@@ -228,7 +240,7 @@ else
                 
                 ob_end_clean();
                 $this->renderPartial('singlefile',array(
-			'model'=>$model,
+			'model'=>$model,'limit'=>$limit,'offset'=>$offset
 		));
 
 	}
@@ -238,6 +250,17 @@ else
 		$status='Published';
                 $id = Yii::app()->request->getParam('id');
                 $doi= Yii::app()->request->getParam('doi');
+                $limit= Yii::app()->request->getParam('limit');
+                $offset= Yii::app()->request->getParam('offset');
+                if(!isset($limit) || $limit>100)
+                {
+                    $limit=100;
+                    
+                }
+                if(!isset($offset))
+                {
+                    $offset=0;
+                }                
                 if(isset($id))
                 {
                    
@@ -277,7 +300,7 @@ else
                 
                 ob_end_clean();
                 $this->renderPartial('singlesample',array(
-			'model'=>$model,
+			'model'=>$model,'limit'=>$limit,'offset'=>$offset
 		));
                 
 
@@ -298,10 +321,21 @@ else
                 $token= Yii::app()->request->getParam('token');
                 $datasettype= Yii::app()->request->getParam('datasettype');
                 $project= Yii::app()->request->getParam('project');
+                $limit= Yii::app()->request->getParam('limit');
+                $offset= Yii::app()->request->getParam('offset');
                 $connection=Yii::app()->db;
                 if(!isset($result))
                 {
                   $result='dataset'; 
+                }
+                if(!isset($limit) || $limit>100)
+                {
+                    $limit=100;
+                    
+                }
+                if(!isset($offset))
+                {
+                    $offset=0;
                 }
                 
                 if(isset($keyword))
@@ -309,7 +343,7 @@ else
                     if(strpos($keyword, ':'))
                     {
                         $pieces = explode(":", $keyword);
-                        $sql="SELECT * from dataset where ".$pieces[0]." like '%".$pieces[1]."%'";  
+                        $sql="SELECT * from dataset where ".$pieces[0]." like '%".$pieces[1]."%' order by id desc";  
                         try{
                         $models= Dataset::model()->findAllBySql($sql);}
                         catch(CDbException $e)
@@ -319,24 +353,24 @@ else
                             sprintf('No items where found for keyword <b>%s</b>',$keyword) );
                         }
                      
-                                              if (ob_get_contents()){
+                        if (ob_get_contents()){
                              ob_end_clean();}
                   
                     switch ($result) {
                         case "dataset":
                             
                             $this->renderPartial('keyworddataset',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "sample":
                           
                             $this->renderPartial('keywordsample',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "file":
                             
                             $this->renderPartial('keywordfile',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
 
                         default:
@@ -428,7 +462,7 @@ else
                          $this->renderPartial('keyword',array(
                             'datasetids'=>$datasets,
                             'sampleids'=>$samples,
-                            'fileids'=>$files));
+                            'fileids'=>$files,'limit'=>$limit,'offset'=>$offset));
                         
                     }
                     else{
@@ -441,7 +475,7 @@ else
                           sprintf('No items where found for keyword <b>%s</b> in dataset, Please search in sample or file',$keyword) );    
                              }
                             $this->renderPartial('keywordalldataset',array(
-                            'datasetids'=>$datasets,));
+                            'datasetids'=>$datasets,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "sample":
                           if(empty($samples)){
@@ -452,7 +486,7 @@ else
                              }
                             
                             $this->renderPartial('keywordallsample',array(
-                            'sampleids'=>$samples,));
+                            'sampleids'=>$samples,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "file":
                             
@@ -463,7 +497,7 @@ else
                           sprintf('No items where found for keyword <b>%s</b> in file, Please search in dataset or sample',$keyword) );    
                              }
                             $this->renderPartial('keywordallfile',array(
-                            'fileids'=>$files,));
+                            'fileids'=>$files,'limit'=>$limit,'offset'=>$offset));
                             break;
 
                         default:
@@ -486,7 +520,7 @@ else
                     
                     {
                     $uppertype=strtoupper($datasettype);    
-                    $sql='select DISTINCT dataset.id from dataset,dataset_sample,sample,species,dataset_type,type where dataset.id=dataset_sample.dataset_id and dataset_sample.sample_id=sample.id and sample.species_id=species.id and dataset_type.dataset_id=dataset.id and dataset_type.type_id=type.id and species.tax_id=:taxno and dataset.upload_status=:status and upper(type.name)=:datasettype;';
+                    $sql='select DISTINCT dataset.id from dataset,dataset_sample,sample,species,dataset_type,type where dataset.id=dataset_sample.dataset_id and dataset_sample.sample_id=sample.id and sample.species_id=species.id and dataset_type.dataset_id=dataset.id and dataset_type.type_id=type.id and species.tax_id=:taxno and dataset.upload_status=:status and upper(type.name)=:datasettype order by dataset.id desc;';
                     $command=$connection->createCommand($sql);
                     $command->bindParam(":taxno",$taxno,PDO::PARAM_STR); 
                     $command->bindParam(":status",$status,PDO::PARAM_STR); 
@@ -496,7 +530,7 @@ else
                     }
                     else{
                         
-                    $sql='select DISTINCT dataset.id from dataset,dataset_sample,sample,species where dataset.id=dataset_sample.dataset_id and dataset_sample.sample_id=sample.id and sample.species_id=species.id and species.tax_id=:taxno and dataset.upload_status=:status;';
+                    $sql='select DISTINCT dataset.id from dataset,dataset_sample,sample,species where dataset.id=dataset_sample.dataset_id and dataset_sample.sample_id=sample.id and sample.species_id=species.id and species.tax_id=:taxno and dataset.upload_status=:status order by dataset.id desc;';
                     $command=$connection->createCommand($sql);
                     $command->bindParam(":taxno",$taxno,PDO::PARAM_STR); 
                     $command->bindParam(":status",$status,PDO::PARAM_STR);
@@ -522,7 +556,7 @@ else
                         $dataset_ids=$dataset_ids.$row['id'].",";
                     }
                     $dataset_ids=  trim($dataset_ids,',');
-                    $sql1="SELECT * from dataset where id in (".$dataset_ids.")";
+                    $sql1="SELECT * from dataset where id in (".$dataset_ids.") order by dataset.id desc";
                     $models= Dataset::model()->findAllBySql($sql1);
                     if (ob_get_contents()){
                     ob_end_clean();}
@@ -530,24 +564,24 @@ else
                     {
                         
                           $this->renderPartial('keyworddataset',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                         
                     }else{
                     switch ($result) {
                         case "dataset":
                             
                             $this->renderPartial('keyworddataset',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "sample":
                           
                             $this->renderPartial('keywordsample',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "file":
                             
                             $this->renderPartial('keywordlfile',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
 
                         default:
@@ -599,7 +633,7 @@ else
                     $dataset_ids=  trim($dataset_ids,',');
                     
                     try{
-                    $sql1="SELECT * from dataset where id in (".$dataset_ids.")";
+                    $sql1="SELECT * from dataset where id in (".$dataset_ids.") order by dataset.id desc";
                     $models= Dataset::model()->findAllBySql($sql1);
                     }
                     catch(CDbException $e)
@@ -615,21 +649,21 @@ else
                     {
                         
                           $this->renderPartial('keyworddataset',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                         
                     }else{
                     switch ($result) {
                         case "dataset":                         
                             $this->renderPartial('keyworddataset',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "sample":                         
                             $this->renderPartial('keywordsample',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "file":                           
                             $this->renderPartial('keywordfile',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
 
                         default:
@@ -669,7 +703,7 @@ else
                     $dataset_ids=  trim($dataset_ids,',');
                     
                     try{
-                    $sql1="SELECT * from dataset where id in (".$dataset_ids.")";
+                    $sql1="SELECT * from dataset where id in (".$dataset_ids.") order by dataset.id desc";
                     $models= Dataset::model()->findAllBySql($sql1);
                     }
                      catch(CDbException $e)
@@ -684,15 +718,15 @@ else
                     switch ($result) {
                         case "dataset":                         
                             $this->renderPartial('keyworddataset',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "sample":                         
                             $this->renderPartial('keywordsample',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "file":                           
                             $this->renderPartial('keywordfile',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
 
                         default:
@@ -728,7 +762,7 @@ else
                     $dataset_ids=  trim($dataset_ids,',');
                     
                     try{
-                    $sql1="SELECT * from dataset where id in (".$dataset_ids.")";
+                    $sql1="SELECT * from dataset where id in (".$dataset_ids.") order by dataset.id desc";
                     $models= Dataset::model()->findAllBySql($sql1);
                     }
                      catch(CDbException $e)
@@ -743,15 +777,15 @@ else
                     switch ($result) {
                         case "dataset":                         
                             $this->renderPartial('keyworddataset',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "sample":                         
                             $this->renderPartial('keywordsample',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "file":                           
                             $this->renderPartial('keywordfile',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
 
                         default:
@@ -803,7 +837,7 @@ else
                     $dataset_ids=  trim($dataset_ids,',');
                     
                     try{
-                    $sql1="SELECT * from dataset where id in (".$dataset_ids.")";
+                    $sql1="SELECT * from dataset where id in (".$dataset_ids.") order by dataset.id desc";
                     $models= Dataset::model()->findAllBySql($sql1);
                     }
                      catch(CDbException $e)
@@ -857,15 +891,15 @@ else
                     switch ($result) {
                         case "dataset":                         
                             $this->renderPartial('keyworddataset',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "sample":                         
                             $this->renderPartial('keywordsample',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "file":                           
                             $this->renderPartial('keywordfile',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
 
                         default:
@@ -898,7 +932,7 @@ else
                     $dataset_ids=  trim($dataset_ids,',');
                     
                     try{
-                    $sql1="SELECT * from dataset where id in (".$dataset_ids.")";
+                    $sql1="SELECT * from dataset where id in (".$dataset_ids.") order by dataset.id desc";
                     $models= Dataset::model()->findAllBySql($sql1);
                     }
                      catch(CDbException $e)
@@ -915,15 +949,15 @@ else
                     switch ($result) {
                         case "dataset":                         
                             $this->renderPartial('keyworddataset',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "sample":                         
                             $this->renderPartial('keywordsample',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "file":                           
                             $this->renderPartial('keywordfile',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
 
                         default:
@@ -955,7 +989,7 @@ else
                     $dataset_ids=  trim($dataset_ids,',');
                     
                     try{
-                    $sql1="SELECT * from dataset where id in (".$dataset_ids.")";
+                    $sql1="SELECT * from dataset where id in (".$dataset_ids.") order by dataset.id desc";
                     $models= Dataset::model()->findAllBySql($sql1);
                     }
                     catch(CDbException $e)
@@ -970,15 +1004,15 @@ else
                     switch ($result) {
                         case "dataset":                         
                             $this->renderPartial('keyworddataset',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "sample":                         
                             $this->renderPartial('keywordsample',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
                         case "file":                           
                             $this->renderPartial('keywordfile',array(
-                            'models'=>$models,));
+                            'models'=>$models,'limit'=>$limit,'offset'=>$offset));
                             break;
 
                         default:
