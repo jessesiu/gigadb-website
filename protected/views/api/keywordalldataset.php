@@ -1,7 +1,8 @@
 <?php
 header('Content-Type: text/xml');
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-$xml.="<gigadb_entrys>";
+$total_size=count($datasetids);
+$xml.="<gigadb_entrys total_dataset_num=\"$total_size\">";
 if(!empty($datasetids)){
 $dataset_no=1;
 $datasetids=array_slice($datasetids,$offset);   

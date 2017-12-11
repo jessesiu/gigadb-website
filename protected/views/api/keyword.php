@@ -1,9 +1,11 @@
 <?php
-ini_set('max_execution_time',300);
+ini_set('max_execution_time',1000);
 header('Content-Type: text/xml');
 $xml="<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-$total_size= count($datasetids);
-$xml.="<gigadb_entrys total_dataset_num=\"$total_size\">";
+$total_size_dataset= count($datasetids);
+$total_size_sample= count($sampleids);
+$total_size_file= count($fileids);
+$xml.="<gigadb_entrys total_dataset_num=\"$total_size_dataset\" total_sample_num=\"$total_size_sample\" total_file_num=\"$total_size_file\">";
 if(!empty($datasetids)){
 $dataset_no=1;
 $datasetids=array_slice($datasetids,$offset);   
@@ -195,8 +197,13 @@ foreach($dataset_attributes as $dataset_attribute)
 $xml.="</ds_attributes>";
 $xml.="</dataset>"; 
 $xml.='<samples>';
+$dataset_sample_no=1;
 foreach($sampleids as $sampleid)
-{
+{   
+    if($dataset_sample_no>$limit)
+    {
+    break;
+    }  
     $sample=  Sample::model()->findByPK($sampleid);
     $datasetid1;
     foreach($sample->datasets as $dataset1)
@@ -250,11 +257,17 @@ if($datasetid1 == $datasetid)
     }
     $xml.="</sample_attributes>";
     $xml.="</sample>";
+    $dataset_sample_no++;
 }  
 }
 $xml.='</samples>';
 $xml.='<files>';
+$dataset_file_no=1;
 foreach($fileids as $fileid){
+if($dataset_file_no>$limit)
+ {
+    break;
+ }      
 $file=  File::model()->findByPK($fileid);
 $dataset2=  Dataset::model()->findByPK($file->dataset_id);
 if($dataset2->id == $datasetid)
@@ -308,6 +321,7 @@ $xml.="<related_file></related_file>";
 
 $xml.="</file>";   
 }
+$dataset_file_no++;
 }
 $xml.='</files>';
 

@@ -314,6 +314,7 @@ else
                 ini_set('error_log', dirname(__FILE__).'/php_errors.log');
                 $keyword = Yii::app()->request->getParam('keyword');
                 $result= Yii::app()->request->getParam('result');
+                $org= Yii::app()->request->getParam('organization');
                 $taxno= Yii::app()->request->getParam('taxno');
                 $taxname= Yii::app()->request->getParam('taxname');
                 $author= Yii::app()->request->getParam('author');
@@ -456,13 +457,30 @@ else
   
                     ob_end_clean();
                     
+                   
+                    
                     if(!isset($_GET['result']))
                     {
+                         if(isset($_GET['organization']))
+                    {
+                                             
+                        if($_GET['organization']=='cngb')
+                        {
+           
+                        $this->renderPartial('cngb',array(
+                            'datasetids'=>$datasets,
+                            'sampleids'=>$samples,
+                            'fileids'=>$files,'limit'=>$limit,'offset'=>$offset)); 
+                        }
+                        
+                    }
+                    else{
                         
                          $this->renderPartial('keyword',array(
                             'datasetids'=>$datasets,
                             'sampleids'=>$samples,
                             'fileids'=>$files,'limit'=>$limit,'offset'=>$offset));
+                    }
                         
                     }
                     else{
