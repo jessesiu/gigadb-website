@@ -38,6 +38,10 @@ class ApiController extends Controller
 				'actions'=>array('Dataset','File' , 'Sample','Search','Dump','List','Listsampleh'),
 				'users'=>array('*'),
 			),
+                        array('allow', // allow admin user to perform 'admin' and 'delete' actions
+			      'actions'=>array('count'),
+			      'roles'=>array('admin'),
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -156,17 +160,36 @@ else
         {
 
           $status='Published';
-          $datasets = Dataset::model()-> findAllByAttributes(array('upload_status'=>$status));
+          $attribute = Yii::app()->request->getParam('attribute');
+          $datasets = Dataset::model()-> findAllByAttributes(array('upload_status'=>$status),array('order'=>'id desc'));
           ob_end_clean();
-           $this->renderPartial('list',array(
+          $this->renderPartial('list',array(
                         'models'=>$datasets,
+                        'attribute'=>$attribute,
+             
                 ));
 
 
 
         }
         
-        public function actionListsampleh()
+        public function actionCount() {
+
+        $table = Yii::app()->request->getParam('table');
+        echo $table;
+        $connection = Yii::app()->db;
+        $sql = "select count(id) from " . $table . ";";
+        echo $sql;
+        $command = $connection->createCommand($sql);
+        $rows = $command->queryRow();
+        ob_end_clean();
+        $this->renderPartial('count', array(
+            'table' => $table,
+            'models' => $rows,
+        ));
+    }
+
+    public function actionListsampleh()
         {
                     $connection=Yii::app()->db;
                     $sql='select sample.id from sample, species where sample.species_id=species.id and species.tax_id=9606;';
@@ -344,7 +367,7 @@ else
                     if(strpos($keyword, ':'))
                     {
                         $pieces = explode(":", $keyword);
-                        $sql="SELECT * from dataset where ".$pieces[0]." like '%".$pieces[1]."%' order by id desc";  
+                        $sql="SELECT * from dataset where ".$pieces[0]." like '%".$pieces[1]."%' and upload_status='Published' order by id desc";  
                         try{
                         $models= Dataset::model()->findAllBySql($sql);}
                         catch(CDbException $e)
