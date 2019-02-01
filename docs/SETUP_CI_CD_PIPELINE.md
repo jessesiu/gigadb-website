@@ -1,6 +1,6 @@
-# Setting up CI/CD pipeline in GitLab
+# How to set up CI/CD pipelines for GigaDB with gitlab.com
 
-Modern software development for applications may involve implementing small code 
+Modern software application development may involve implementing small code 
 changes which are frequently checked into version control. Continuous 
 Integration (CI) provides a consistent and automated way to build, package and 
 test the application under development. Furthermore, Continuous Delivery 
@@ -20,37 +20,41 @@ The GigaDB `.gitlab-ci.yml` file tells the GitLab Runner to run a pipeline job
 with these stages: build, test, security, conformance, staging and live. The 
 status of every pipeline is displayed in the Pipelines page.
 
-## Steps to integrate a GitHub repository branch into GitLab CI pipeline
+### Mirroring your forked gigadb-website repository from GitHub
 
-Add your GitHub repository fork of gigadb-website to GitLab’s Gigascience Forks 
-organisation. To do this:
+To begin, we need to mirror your forked GitHub gigadb-website repository in a 
+GitLab project. This is done by adding your GitHub gigadb-website repository to 
+the GitLab Gigascience Forks organisation. To do this:
 
 * Log into GitLab and go to the 
 [gigascience/Forks page](https://gitlab.com/gigascience/forks).
  
-* Click on *New Project* followed by *CI/CD for external repo* followed by 
+* Click on *New Project* followed by *CI/CD for external repo* and then 
 *GitHub*. This will list all your code repositories in GitHub. Select the 
 repository fork of gigadb-website that you want to perform CI/CD on. Under the 
 *To GitLab* column, select *gigascience/forks* to connect your repo to this 
-GitLab group. Provide a name, *e.g.* pli888-gigadb-website so that you can 
+GitLab group. Provide a name, *e.g.* rija-gigadb-website so that you can 
 differentiate your repo from others in the Forks group. Finally, click the 
 *Connect* button.
+
+### Configuring your GitLab gigadb-website project
 
 Next, your GitLab gigadb-website project requires configuration:
 
 * Go to your project web page, *e.g.* 
-https://gitlab.com/gigascience/forks/pli888-gigadb-website and click on 
+https://gitlab.com/gigascience/forks/rija-gigadb-website and click on 
 *Settings > CI / CD*.
 
 * In the *General pipelines* section, ensure that the *Public pipelines* 
-checkbox is NOT ticked, otherwise variables will leak into the logs. The 
+checkbox is **NOT** ticked, otherwise variables will leak into the logs. The 
 *Test coverage parsing* text field should also contain: 
 ` \ \ Lines:\s*(\d+.\d+\%)`. Click on *Save changes*.
  
 * The environment variables below need to be created for your project using 
 the  *Settings > CI / CD* page at 
-[https://gitlab.com/gigascience/forks/pli888-gigadb-website/settings/ci_cd](https://gitlab.com/gigascience/forks/pli888-gigadb-website/settings/ci_cd). 
-Please contact a member of the GigaScience tech support staff for the correct values.
+[https://gitlab.com/gigascience/forks/rija-gigadb-website/settings/ci_cd](https://gitlab.com/gigascience/forks/pli888-gigadb-website/settings/ci_cd). 
+Please contact a member of the GigaScience tech support staff for the correct 
+values.
 
 Variable Name | Value
 ------------ | -------------
@@ -58,7 +62,7 @@ ANALYTICS_CLIENT_EMAIL | 0
 ANALYTICS_CLIENT_ID | 0
 ANALYTICS_PRIVATE_KEY | 0
 COVERALLS_REPO_TOKEN | 0
-FORK | remove-chef-vagrant
+FORK | develop
 MAILCHIMP_API_KEY | 0
 MAILCHIMP_LIST_ID | 0
 MAILCHIMP_TEST_EMAIL | 0
@@ -79,25 +83,30 @@ staging_tlsauth_key | 0
 * These environment variables together with those in the Forks group are 
 exported to the `.secrets` file and are listed [here](https://github.com/gigascience/gigadb-website/blob/develop/ops/configuration/variables/secrets-sample).
  
-* Your CI/CD pipeline can now be executed. Go to 
-[https://gitlab.com/gigascience/forks/pli888-gigadb-website/pipelines](https://gitlab.com/gigascience/forks/pli888-gigadb-website/pipelines)
-and click on *Run Pipeline*. In the *Create for* text field, select the name of 
-the branch you want to run the CI-CD pipeline. Then click on the 
-*Create pipeline* button. Refresh the pipelines page, you should see the CI/CD 
-pipeline running. If the pipeline is successful, you will see it run the build, 
-test, security and conformance stages.
+### Executing a Continuous Integration run
  
- 
-## Steps to execute Continuous Deployment in the CI/CD pipeline
+Your CI/CD pipeline can now be executed:
 
-The deployment of gigadb-website code into a staging or production server to 
+* Go to your pipelines page and click on *Run Pipeline*.
+
+* In the *Create for* text field, select the name of the branch you want to run 
+the CI/CD pipeline. Then click on the *Create pipeline* button. 
+
+* Refresh the pipelines page, you should see the CI/CD pipeline running. If the 
+set up of your pipeline is successful, you will see it run the build, test, 
+security and conformance stages.
+ 
+ 
+## Continuous Deployment in the CI/CD pipeline
+
+The deployment of gigadb-website code onto a staging or production server to 
 provide a running GigaDB application is not automatically performed by the 
-CI/CD pipeline since it has been set to run manually in the .gitlab-ci.yml file. 
-Instead, this part of the CI/CD process has to be manually executed from the 
+CI/CD pipeline since it is set to run manually in the `.gitlab-ci.yml` file. 
+Therefore, this part of the CI/CD process has to be manually executed from the 
 [GitLab pipelines](https://gitlab.com/gigascience/forks/pli888-gigadb-website/pipelines)
 page. Prior to this, a server has to be instantiated with an installation of the
-Docker daemon to manage containers and images. This can be done as follows
-using Terraform and Ansible to create a Docker server on AWS.
+Docker daemon to manage containers and images. This can be done as follows using
+Terraform and Ansible to create a Docker server on AWS.
 
 [Terraform](https://www.terraform.io) is a tool which allows you to describe 
 infrastructure as code in text files ending in *.tf*. There is a such a file in
@@ -105,13 +114,13 @@ infrastructure as code in text files ending in *.tf*. There is a such a file in
 on AWS with the security privileges that allow communication with a Docker 
 daemon.
  
-* Firstly, download and install Terraform if you have not already done so. An 
-installer may be downloaded from the [Terraform](https://www.terraform.io) web 
-site or it can be installed  using a package manager for your computer, *e.g.*
+* Firstly, install Terraform if you have not already done so. An installer may 
+be downloaded from the [Terraform](https://www.terraform.io) web site or it can 
+be installed  using a package manager for your computer, *e.g.*
 [Macports](https://www.macports.org) for OSX or yum for Centos.
 
-* Now create the following environment variables with the required values
-on your computer:
+* Create the following environment variables with the required values on your 
+computer:
 ```
 $ cd ops/infrastructure
 $ export TF_VAR_deployment_target=staging
@@ -140,7 +149,7 @@ gigadb-website project is at `ops/infrastructure/inventories/hosts`.
 * Check this file so that the `ansible_ssh_private_key_file` variable contains 
 the correct path to your AWS pem file.
 * If not present, create a `~/.gitlab_private_token` file since this is 
-referenced in the hosts file and provides access to the GitLab API.
+referenced in the `hosts` file and provides access to the GitLab API.
 
 Roles are used in Ansible to perform tasks such as installing a piece of 
 software. An Ansible role consists of a group of variables, tasks, files and 
@@ -166,11 +175,6 @@ Ansible will update values for specific project environment variables in
 GitLab. Check them on the project environment variables page after the Ansible
 provisioning has completed.
 
-* TLSAUTH_CA - the certificate authority - needs to be created for the GitLab 
-pipeline server  <-- not needed anymore
-* TLSAUTH_CERT - the public certificate for the above CA which is created using 
-the below key. <-- not needed anymore
-* TLSAUTH_KEY - the server key for the above CA. <-- not needed anymore
 * staging_tlsauth_ca - certificate authority for staging server - this is 
 provided by staging server during Ansible provisioning
 * staging_tlsauth_cert - public certificate for staging server - this is 
@@ -179,25 +183,27 @@ provided by staging server during Ansible provisioning
 staging server during Ansible provisioning
  
 This is for running a secure Docker engine on the production CNGB virtual server
-so that the Docker API is secured over TCP and we know we communicating with the 
-correct server and not a malicious impersonation. We also need to authenticate 
-the client with TLS so only clients using the client certificates can use the 
-Docker engine. This is the 2-way certificate-based authentication.
+so that the Docker API is secured over TCP and we know we are communicating 
+with the correct server and not a malicious impersonation. We also need to 
+authenticate the client with TLS so only clients using the client certificates 
+can use the Docker engine. This is the 2-way certificate-based authentication.
 
 ### Further configuration steps
 
 The new gigadb-website code contains functionality for running GigaDB over 
-[HTTPS](https://en.wikipedia.org/wiki/HTTPS). The Let's Encrypt certificate
-authority is used as a trusted authority to sign a certificate provided by 
-GigaDB which is trusted by users.
+[HTTPS](https://en.wikipedia.org/wiki/HTTPS). The 
+[Let's Encrypt](https://letsencrypt.org) certificate authority is used as a 
+trusted authority to sign a certificate provided by GigaDB which is trusted by 
+users.
 
 * For Let's Encrypt to do this, the server used for deployment requires a domain 
 name. The EC2 domain names provided by AWS cannot be used because they are 
-ephemeral and so are blacklisted by let's encrypt and your own domain name must 
-be used instead, *e.g.* gigadb-staging.gigatools.net. Let's Encrypt verifies
-that this domain name is under our control.
+ephemeral and so are blacklisted by Let's Encrypt and your own domain name must 
+be used instead, *e.g.* [http://gigadb-staging.gigatools.net]. Let's Encrypt 
+verifies that this domain name is under our control.
+
 * The .gitlab-ci.yml file needs to be edited to use your domain name by changing
-`gigadb-staging.pommetab.com` to, for example, `gigadb-staging.gigatools.net` 
+`gigadb-staging.pommetab.com` to, for example, `gigadb-staging.gigatools.net`, 
 the domain name for your server where GigaDB will be located.
 
 ### Executing the CD pipeline for deployment

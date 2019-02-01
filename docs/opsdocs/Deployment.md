@@ -15,13 +15,13 @@ ops
 
 ## GitLab CI/CD
 
-GitLab provides a CI service used by GigaDB based on the 
+GitLab provides a CI/CD service used by GigaDB based on the 
 [`.gitlab-ci.yml`](https://github.com/gigascience/gigadb-website/blob/develop/.gitlab-ci.yml)
 file located at the root of the `gigadb-website` repository. A Runner in GitLab 
-is configured to trigger the CI pipeline every time there is a code commit or 
+is configured to trigger the CI/CD pipeline every time there is a code commit or 
 push to the GitHub repository which is mirrored on GitLab. GitLab.com allows you 
 to use Shared Runners provided by GitLab Inc which are virtual machines running 
-on GitLab's infrastructure to build any project.
+on GitLab's infrastructure to build any project using its CI/CD pipeline.
 
 ### Environments
 
@@ -32,7 +32,7 @@ deployable on an EC2 instance.
 
 #### CNGB
 
-TODO - CNGB has not been tested yet with the CI/CD pipeline.
+TODO - CNGB infrastructure has not been tested yet with the CI/CD pipeline.
 
 ### Variables
 
@@ -46,17 +46,19 @@ passwords and credentials.
 
 Group-level variables can be added by:
 
-1. Navigating to your group’s Settings > CI/CD page.
+1. Navigating to the GigaScience Fork group’s Settings > CI/CD page.
 
-2. Inputting variable keys and values in the Environment variables section. Any variables of subgroups will be inherited recursively.
+2. Inputting variable keys and values in the Environment variables section. Any 
+variables of subgroups will be inherited recursively.
 
 #### Project variables
 
-Project-level variables can be added by:
+Project-level variables are those associated directly with your gigadb-website
+code repository and can be added by:
 
-1. Navigating to your project’s Settings > CI/CD page.
+1. Navigating to your gigadb-website project’s Settings > CI/CD page in GitLab.
 
-2. Inputting variable keys and values in the Environment variables section.
+2. Inputting variable keys and values in the `Environment variables` section.
 
 ### Pipeline
 
@@ -80,21 +82,22 @@ The status of every pipeline is displayed in the Pipelines page.
 
 ### Deploying a build
 
-Deployment of a build requires a server running a Docker daemon. Creation of a
-server instance on AWS EC2 is done using [Terraform](https://www.terraform.io).
-The provisioning of this EC2 server with a Docker daemon then performed using 
-[Ansible](https://www.ansible.com). In addition, this Ansible stage posts the
-following values to the variables below:
+Deployment of a build happens in the staging and live stages of the CI/CD 
+pipeline, and requires a server running a Docker daemon.
+
+#### AWS
+
+Creation of a server instance on AWS EC2 is done using 
+[Terraform](https://www.terraform.io). The provisioning of this EC2 server with 
+a Docker daemon then performed using [Ansible](https://www.ansible.com). In 
+addition, this Ansible stage posts the following values below to the 
+`Environment variables` for your gigadb-website project:
 
 Variable | Description
 ---------|------------
 staging_tlsauth_ca | Certificate authority for staging server
 staging_tlsauth_cert | Public certificate for staging server
 staging_tlsauth_key | Server key for the above certificate authority
-
-#### AWS
-
-TODO
 
 #### CNGB
 
