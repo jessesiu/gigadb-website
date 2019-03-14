@@ -184,7 +184,7 @@ check_SAST:
 check_DAST:
   image: registry.gitlab.com/gitlab-org/security-products/zaproxy
   variables:
-    website: "https://gigadb-staging.pommetab.com/"
+    website: "https://gigadb-staging-jesse.gigatools.net"
   before_script:
     - echo "About to run DAST"
   script:
