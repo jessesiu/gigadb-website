@@ -1,7 +1,5 @@
 <?php
 $this->pageTitle = 'GigaDB - Genomic Dataset checklists';
-
-//echo $this->renderInternal('Yii::app()->basePath'.'/../files/html/about.html');
 ?>
 <style>
     table {
