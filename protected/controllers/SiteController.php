@@ -4,7 +4,7 @@ class SiteController extends Controller {
     /**
  	 * Declares class-based actions.
 	 */
-    //public $layout='//layouts/new_main';
+    public $layout='//layouts/new_main';
 	public function actions() {
 		return array(
 			# captcha action renders the CAPTCHA image displayed on the contact page
@@ -66,7 +66,7 @@ class SiteController extends Controller {
 	#        $this->redirect(array('user/accountBalance', 'id'=>Yii::app()->user->_id));
 	#    }
 	#}
-                $this->layout='new_main';
+         //       $this->layout='new_main';
 		$form=new SearchForm;  // Use for Form
 		$dataset = new Dataset; // Use for auto suggestion
 
@@ -240,7 +240,7 @@ class SiteController extends Controller {
 	 */
 	public function actionContact() {
 
-            $this->layout='new_main';
+         //   $this->layout='new_main';
 		$model = new ContactForm;
 		if (isset($_POST['ContactForm'])) {
 			$model->attributes=$_POST['ContactForm'];
@@ -258,7 +258,7 @@ class SiteController extends Controller {
 	*/
 	public function actionMapbrowse() {
 
-             $this->layout='new_main';
+         //    $this->layout='new_main';
 	     $locations = Yii::app()->db->createCommand("SELECT d.identifier,  d.title, satt.value, sp.scientific_name as sciname, s.id as sampleid FROM dataset as d
 					      INNER JOIN dataset_sample as dsam on dsam.dataset_id = d.id
 						  INNER JOIN sample as s on s.id = dsam.sample_id
@@ -294,18 +294,18 @@ class SiteController extends Controller {
 	}
 
         public function actionTeam() {
-                $this->layout='new_main';
+        //        $this->layout='new_main';
 		$this->render('team');
 	}
 
 
 	public function actionAbout() {
-                $this->layout='new_main';
+         //       $this->layout='new_main';
 		$this->render('about');
 	}
 
     public function actionAdvisory() {
-                $this->layout='new_main';
+         //       $this->layout='new_main';
 		$this->render('advisory');
 	}
 	public function actionFaq() {
@@ -314,13 +314,13 @@ class SiteController extends Controller {
 	}
 
 	public function actionTerm() {
-                $this->layout='new_main';
+        //        $this->layout='new_main';
 		$this->render('term');
 	}
 
 
 	public function actionHelp() {
-                $this->layout='new_main';
+        //        $this->layout='new_main';
 		$this->render('help');
 	}
 
@@ -353,7 +353,7 @@ class SiteController extends Controller {
 	 */
 	public function actionLogin() {
 
-        $this->layout = "new_main";
+        //$this->layout = "new_main";
         $model = new LoginForm;
         if (isset($_GET['redirect']) && isset($_GET['username']) && isset($_GET['password'])) {
             $model->username = $_GET['username'];

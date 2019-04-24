@@ -13,6 +13,8 @@ class AdminDatasetController extends Controller
 	/**
      * @return array action filters
      */
+    public $layout='//layouts/new_main';
+
     public function filters()
     {
         return array(
