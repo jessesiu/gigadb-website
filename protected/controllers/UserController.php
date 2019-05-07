@@ -2,6 +2,7 @@
 
 class UserController extends Controller {
     const PAGE_SIZE = 10;
+    public $layout='//layouts/new_main';
 
     /**
      * @var string specifies the default action
