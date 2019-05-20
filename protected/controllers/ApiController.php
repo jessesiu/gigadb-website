@@ -31,7 +31,7 @@ class ApiController extends Controller
 		return array(
 
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('Dataset','File' , 'Sample','Search','Dump','List'),
+				'actions'=>array('Dataset','File' , 'Sample','Search','Dump','List','DumpAttribute'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -130,6 +130,30 @@ class ApiController extends Controller
             ));
 
 
+
+    }
+
+    public function actionDumpAttribute()
+    {
+        try{
+            $model=  Attribute::model()->findAll(array("order" => "id"));}
+        catch(CDbException $e)
+        {
+
+            $this->_sendResponse(404,
+                sprintf('No items where found for attribute table '));
+        }
+        if(!isset($model))
+        {
+
+            $this->_sendResponse(404,
+                sprintf('No items where found for attribute table'));
+        }else{
+
+            $this->renderPartial('dumpattribute',array(
+                'model'=>$model,
+            ));
+        }
 
     }
 
