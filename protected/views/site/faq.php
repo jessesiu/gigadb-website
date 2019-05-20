@@ -528,6 +528,22 @@ Files:
                                 </div>
                             </div>
                         </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel35" aria-expanded="false" aria-controls="panel35">
+                                        What does my dataset status mean?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="panel35" class="panel-collapse collapse" role="tabpanel">
+                                <div class="panel-body">
+                                    <p>The submission of data to GigaDB is integrated with the submission of a manuscript to journals GigaScience, the general workflow followed is outlined <a href="http://gigadb.org/site/guide">here</a>. During the process you may track the progress in “<a href="http://gigadb.org/user/view_profile#submitted">your datasets</a>”  on your personal profile page in GigaDB. Each of your datasets will have one of the statuses listed below. </p>
+                                    <br>
+                                    <p><img src="../images/dataset_status.png"></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
                
