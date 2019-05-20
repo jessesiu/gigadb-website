@@ -55,7 +55,7 @@
  
                             <td>
                                 <div class="thumbnail">
-                                    <img src="../images/team/image-coming-soon.jpg">
+                                    <img src="../images/team/hongling.png">
                                     <div class="caption">
                                         <h3>HongLing Zhou<br><small>Junior Editor</small></h3>
                                         <p>Aiding in assessing and coordinating submission of scientific manuscripts and data, and handling all of the GigaScience social media accounts in China</p>
@@ -82,7 +82,7 @@
                             </td>
                             <td>
                                 <div class="thumbnail">
-                                    <img src="../images/team/image-coming-soon.jpg">
+                                    <img src="../images/team/nicole.png">
                                     <div class="caption">
                                         <h3>Nicole Nogoy<br><small>Editor</small></h3>
                                         <p></p>
@@ -94,7 +94,7 @@
                         <tr>
                             <td>
                                 <div class="thumbnail">
-                                    <img src="../images/team/image-coming-soon.jpg">
+                                    <img src="../images/team/peter.png">
                                     <div class="caption">
                                         <h3>Peter Li<br><small>Lead Data Manager</small></h3>
                                         <p></p>
@@ -103,7 +103,7 @@
                             </td>
                             <td>
                                 <div class="thumbnail">
-                                    <img src="../images/team/image-coming-soon.jpg">
+                                    <img src="../images/team/scott.png">
                                     <div class="caption">
                                         <h3>Scott Edmunds<br><small>Executive Editor</small></h3>
                                         <p></p>
@@ -112,7 +112,7 @@
                             </td>
                             <td>
                                 <div class="thumbnail">
-                                    <img src="../images/team/image-coming-soon.jpg">
+                                    <img src="../images/team/laurie.png">
                                     <div class="caption">
                                         <h3>Laurie Goodman<br><small>Editor-in-Chief</small></h3>
                                         <p></p>
