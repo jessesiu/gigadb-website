@@ -2,7 +2,7 @@
 
 class ReportController extends Controller
 {
-	public $layout='//layouts/column2';
+	public $layout='//layouts/new_column1';
 
 	/**
 	 * @return array action filters
