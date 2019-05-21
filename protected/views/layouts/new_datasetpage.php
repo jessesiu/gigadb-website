@@ -86,9 +86,6 @@
                             <a class="fa fa-weibo" style="text-decoration: none;" href="http://weibo.com/gigasciencejournal" title="Gigascience on Weibo" aria-label="GigaScience on Weibo"></a>
                         </li>
                         <li>
-                            <a class="fa fa-google-plus" style="text-decoration: none;" href="https://plus.google.com/u/0/104409890199786402308" title="GigaScience on Google+" aria-label="GigaScience on Google+"></a>
-                        </li>
-                        <li>
                             <a  class="fa fa-rss" style="text-decoration: none;" href="http://gigasciencejournal.com/blog/" title="Gigascience Blog" aria-label="GigaScience Blog"></a>
                         </li>
                     </ul>
@@ -176,9 +173,6 @@
                         </li>
                         <li>
                             <a class="fa fa-weibo" style="text-decoration: none;" href="http://weibo.com/gigasciencejournal" title="Gigascience on Weibo" aria-label="GigaScience on Weibo"></a>
-                        </li>
-                        <li>
-                            <a class="fa fa-google-plus" style="text-decoration: none;" href="https://plus.google.com/u/0/104409890199786402308" title="GigaScience on Google+" aria-label="GigaScience on Google+"></a>
                         </li>
                         <li>
                             <a  class="fa fa-rss" style="text-decoration: none;" href="http://gigasciencejournal.com/blog/" title="Gigascience Blog" aria-label="GigaScience Blog"></a>
