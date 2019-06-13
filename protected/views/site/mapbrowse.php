@@ -151,17 +151,17 @@ $this->pageTitle='GigaDB - Map Browse';
           if (feature) {
               var coord = map.getCoordinateFromPixel(evt.pixel);
               if (typeof feature.get('features') === 'undefined') {
-                  popup_content.innerHTML = '<h5><b>Dataset:<a href="http://dx.doi.org/10.5524/' + feature.get('Dataset') + '">'+feature.get('Dataset')+'</a></b></h5>';
+                  popup_content.innerHTML = '<h5><b>Dataset:<a href="/dataset/' + feature.get('Dataset') + '">'+feature.get('Dataset')+'</a></b></h5>';
               } else {
                   var cfeatures = feature.get('features');
                   if (cfeatures.length > 1) {
                       popup_content.innerHTML = '<h5><strong>"Samples"</strong></h5>';
                       for (var i = 0; i < cfeatures.length; i++) {
-                          $(popup_content).append('<article><strong><a href="http://dx.doi.org/10.5524/'+cfeatures[i].get('Dataset')+'">'+cfeatures[i].get('Dataset') +':' + cfeatures[i].get('Scientific name') +'</a></article>');
+                          $(popup_content).append('<article><strong><a href="/dataset/'+cfeatures[i].get('Dataset')+'">'+cfeatures[i].get('Dataset') +':' + cfeatures[i].get('Scientific name') +'</a></article>');
                       }
                   }
                   if (cfeatures.length == 1) {
-                      popup_content.innerHTML = '<h5><b>Dataset:<a href="http://dx.doi.org/10.5524/' + cfeatures[0].get('Dataset') + '">'+cfeatures[0].get('Dataset')+'</a></b></h5>'+cfeatures[0].get('Scientific name');
+                      popup_content.innerHTML = '<h5><b>Dataset:<a href="/dataset/' + cfeatures[0].get('Dataset') + '">'+cfeatures[0].get('Dataset')+'</a></b></h5>'+cfeatures[0].get('Scientific name');
                   }
               }
               popup.scrollTop = 0;
