@@ -356,4 +356,47 @@ EO_SQL;
 
         return $content;
     }
+
+    public function getDisplayAttr() {
+        $num = count($this->sampleAttributes);
+        if($num > 3) {
+            $display = <<<HTML
+		<span class="js-short-$this->id">$this->shortAttrDesc</span>
+        		<span class="js-long-$this->id" style="display: none;">$this->fullAttrDesc</span>
+HTML;
+            if($this->shortAttrDesc)
+                $display .= "<a href='#' class='js-desc' data='$this->id'>+</a>";
+        } else {
+            $display = <<<HTML
+        		<span class="js-long-$this->id">$this->fullAttrDesc</span>
+HTML;
+        }
+        return $display;
+    }
+
+    public function getFullAttrDesc() {
+        $desc = "";
+        foreach($this->sampleAttributes as $sa){
+            $name = $sa->attribute->attribute_name;
+            $attr = ucfirst($name). ":".$sa->value."<br/>";
+            $desc .= $attr;
+        }
+        return $desc;
+    }
+
+    public function getShortAttrDesc() {
+        $desc = "";
+        $attrs = $this->sampleAttributes;
+        if(!$attrs)
+            return $desc;
+        foreach($attrs as $idx => $sa){
+            $name = $sa->attribute->attribute_name;
+            $attr = ucfirst($name). ":".$sa->value;
+            $short = strlen($attr) > 50 ? substr($attr, 0, 50). "...<br/>":$attr ."<br/>";
+            $desc .= $short;
+            if($idx > 1)
+                break;
+        }
+        return $desc."...";
+    }
 }
