@@ -1041,6 +1041,9 @@ table.submitted-table > tbody > tr > td:nth-child(9) > a:first-child {
 .span9 {
   width: 700px;
 }
+.span10 {
+    width: 780px;
+}
 .offset3 {
   margin-left: 260px;
 }
@@ -1774,7 +1777,40 @@ table.submitted-table > tbody > tr > td:nth-child(9) > a:first-child {
   *zoom: 1;
   margin-bottom: 0;
 }
-
+.form-horizontal .control-group {
+    margin-bottom: 18px;
+    *zoom: 1;
+}
+.form-horizontal .control-group:before,
+.form-horizontal .control-group:after {
+    display: table;
+    content: "";
+}
+.form-horizontal .control-group:after {
+    clear: both;
+}
+.form-horizontal .control-label {
+    float: left;
+    width: 140px;
+    padding-top: 5px;
+    text-align: right;
+}
+.form-horizontal .controls {
+    *display: inline-block;
+    *padding-left: 20px;
+    margin-left: 160px;
+    *margin-left: 0;
+}
+.form-horizontal .controls:first-child {
+    *padding-left: 160px;
+}
+.form-horizontal .help-block {
+    margin-top: 9px;
+    margin-bottom: 0;
+}
+.form-horizontal .form-actions {
+    padding-left: 160px;
+}
 /*search-box搜索框：start*/
             .clearfix::before, .clearfix::after {
                 content:"";
