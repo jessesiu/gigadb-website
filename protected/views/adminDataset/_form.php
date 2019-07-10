@@ -161,8 +161,8 @@ $cs->registerCssFile('/css/jquery.tag-editor.css');
                                 </div>
                                 <div class="controls">
                                     <div class="span1">
-                                        <?php echo $form->textField($model,'identifier',array('size'=>32,
-                                                                                                'maxlength'=>32,
+                                        <?php echo $form->textField($model,'identifier',array('size'=>8,
+                                                                                                'maxlength'=>8,
                                                                                                 'disabled'=>$model->upload_status == 'Published',
                                                                                                 'class' => "input-mini",
                                                                                                 'ajax' => array(
