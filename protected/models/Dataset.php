@@ -83,10 +83,11 @@ class Dataset extends CActiveRecord
             array('upload_status', 'length', 'max'=>45),
             array('ftp_site', 'length', 'max'=>100),
             array('excelfile', 'length', 'max'=>50),
+            array('manuscript_id', 'length', 'max'=>20),
             array('description, publication_date, modification_date, image_id, fairnuse, types', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, submitter_id, image_id, identifier, title, description, publisher, dataset_size, ftp_site, upload_status, excelfile, excelfile_md5, publication_date, modification_date', 'safe', 'on'=>'search'),
+            array('id, submitter_id, image_id, identifier, title, description, publisher, dataset_size, ftp_site, upload_status,manuscript_id, excelfile, excelfile_md5, publication_date, modification_date', 'safe', 'on'=>'search'),
 #            array('projectIDs , sampleIDs , authorIDs , datasetTypeIDs' , 'safe'),
         );
     }
@@ -228,6 +229,7 @@ class Dataset extends CActiveRecord
         $criteria->compare('submitter_id',$this->submitter_id);
         $criteria->compare('image_id',$this->image_id);
         $criteria->compare('LOWER(identifier)',strtolower($this->identifier),true);
+        $criteria->compare('LOWER(manuscript_id)',strtolower($this->manuscript_id),true);
         $criteria->compare('LOWER(title)',strtolower($this->title),true);
         $criteria->compare('LOWER(description)',strtolower($this->description),true);
         $criteria->compare('LOWER(publisher)',strtolower($this->publisher_id),true);
