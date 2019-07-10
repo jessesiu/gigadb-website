@@ -1044,6 +1044,9 @@ table.submitted-table > tbody > tr > td:nth-child(9) > a:first-child {
 .span10 {
     width: 780px;
 }
+.span12 {
+    width: 1240px;
+}
 .offset3 {
   margin-left: 260px;
 }
