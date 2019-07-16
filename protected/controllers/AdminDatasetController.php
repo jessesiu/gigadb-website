@@ -143,6 +143,9 @@ class AdminDatasetController extends Controller
             if (isset($_POST['Dataset']['upload_status']) && $_POST['Dataset']['upload_status'] != $model->upload_status) {
                 CurationLog::createlog($_POST['Dataset']['upload_status'], $id);
             }
+            if (isset($_POST['Dataset']['submitter_id']) && $_POST['Dataset']['submitter_id'] != $model->submitter_id) {
+                CurationLog::createlog_change_submitter($_POST['Dataset']['submitter_id'], $id);
+            }
             if ($_POST['Dataset']['curator_id'] != $model->curator_id) {
                 if ($_POST['Dataset']['curator_id'] != "") {
                     $User1 = User::model()-> find('id=:id', array(':id'=>Yii::app()->user->id));

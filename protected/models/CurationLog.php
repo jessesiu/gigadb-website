@@ -93,6 +93,18 @@ class CurationLog extends CActiveRecord
         if (!$curationlog->save())
             return false;
     }
+    public static function createlog_change_submitter($user_id, $dataset_id) {
+
+        $curationlog = new CurationLog;
+        $curationlog->creation_date = date("Y-m-d");
+        $curationlog->last_modified_date = null;
+        $user = User::model()->findByPk($user_id);
+        $curationlog->dataset_id = $dataset_id;
+        $curationlog->created_by = "System";
+        $curationlog->action = "Submitter changed to ".$user->getFullName();
+        if (!$curationlog->save())
+            return false;
+    }
     
     public static function createlog_assign_curator($id,$creator,$username) {
 
