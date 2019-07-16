@@ -279,12 +279,15 @@ class AdminDatasetController extends Controller
                 Yii::log(print_r($model->getErrors(), true), 'error');
             }
         }
-
-        $this->render('update', array(
-            'model' => $model,
-            'curationlog'=>$dataProvider,
-            'dataset_id'=>$id,
-        ));
+        if((isset($_GET['url']))){
+            Yii::app()->createUrl('/adminDataset/private/identifier/'.$model->identifier);
+        }else {
+            $this->render('update', array(
+                'model' => $model,
+                'curationlog' => $dataProvider,
+                'dataset_id' => $id,
+            ));
+        }
     }
 
 

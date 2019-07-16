@@ -339,14 +339,14 @@ function checkdate() {
 
 </script>
 <div class="span12" style="text-align:center">
-    <a href="<?=Yii::app()->createUrl('/adminDataset/admin')?>" class="btn"/>Cancel</a>
-    <?= CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn-green','onclick'=>'js:checkdate()')); ?>
-        <? if (!$model->isNewRecord && ($model->upload_status != 'Published')) { ?>
-    <a href="<?=Yii::app()->createUrl('/adminDataset/private/identifier/'.$model->identifier)?>" class="btn-green"/>Create/Reset Private URL</a>
-        <?if($model->token){?>
-        <a href="<?= Yii::app()->createUrl('/dataset/'.$model->identifier.'/token/'.$model->token) ?>">Open Private URL</a>
-        <?}?>
+    <a href="<?= Yii::app()->createUrl('/adminDataset/admin') ?>" class="btn"/>Cancel</a>
+    <?= CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn-green', 'onclick' => 'js:checkdate()')); ?>
+    <? if (!$model->isNewRecord && ($model->upload_status != 'Published')) { ?>
+        <?= CHtml::submitButton('Create/Reset Private URL', array('class' => 'btn-green', 'onclick' => 'js:checkdate()', 'name' => 'url')); ?>
+        <? if ($model->token) { ?>
+            <a href="<?= Yii::app()->createUrl('/dataset/' . $model->identifier . '/token/' . $model->token) ?>">Open Private URL</a>
         <? } ?>
+    <? } ?>
 </div>
 <?php $this->endWidget(); ?>
 <script type="text/javascript">
