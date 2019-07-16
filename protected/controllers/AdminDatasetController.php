@@ -272,25 +272,23 @@ class AdminDatasetController extends Controller
                 }
 
 
-
                 if ($model->upload_status == 'Published') {
                     $this->redirect('/dataset/' . $model->identifier);
+                }
+                if ((isset($_POST['url']))) {
+                    $this->redirect('/adminDataset/private/identifier/' . $model->identifier);
                 } else {
-                    $this->redirect(array('/dataset/view/id/' . $model->identifier.'/token/'.$model->token));
+                    $this->redirect(array('/dataset/view/id/' . $model->identifier . '/token/' . $model->token));
                 }
             } else {
                 Yii::log(print_r($model->getErrors(), true), 'error');
             }
         }
-        if((isset($_GET['url']))){
-            Yii::app()->createUrl('/adminDataset/private/identifier/'.$model->identifier);
-        }else {
-            $this->render('update', array(
-                'model' => $model,
-                'curationlog' => $dataProvider,
-                'dataset_id' => $id,
-            ));
-        }
+        $this->render('update', array(
+            'model' => $model,
+            'curationlog' => $dataProvider,
+            'dataset_id' => $id,
+        ));
     }
 
 
