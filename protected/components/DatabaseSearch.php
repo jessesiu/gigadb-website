@@ -10,6 +10,8 @@ class DatabaseSearch extends CApplicationComponent {
 			left join dataset d on d.id = f.dataset_id
 			left join file_attributes fa on f.id = fa.file_id 
 			left join attribute a on a.id = fa.attribute_id 
+			left join file_type ft on f.type_id = ft.id
+			left join file_format ff on f.format_id = ff.id
 		";
 
 		$command->where(array('like', 'lower(f.name)', '%'.$keyword.'%'));
@@ -18,9 +20,9 @@ class DatabaseSearch extends CApplicationComponent {
 		$command->orWhere(array('like', 'lower(fa.value)', '%'.$keyword.'%'));
 
 		if($filetypes)
-			$command->andWhere(array('in', 'type_id', $filetypes));
+			$command->andWhere(array('in', 'ft.name', $filetypes));
 		if($formats)
-			$command->andWhere(array('in', 'format_id', $formats));
+			$command->andWhere(array('in', 'ff.name', $formats));
 		
 		if($size['min'] != 0 && $size['max']!=0) {
 			$command->andWhere("size >= :s and size <= :m", array(':s'=>$size['min'], ':m'=>$size['max']));
