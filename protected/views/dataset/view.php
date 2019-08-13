@@ -269,11 +269,11 @@ $this->pageTitle="GigaDB Dataset - DOI 10.5524/".$model->identifier." - ".$title
                             <thead>
                                 <tr>
                                     <th>Sample ID</th>
+                                    <th>Taxonomic ID</th>
                                     <th>Common Name</th>
+                                    <th>Genbank Name</th>
                                     <th>Scientific Name</th>
                                     <th>Sample Attributes</th>
-                                    <th>Taxonomic ID</th>
-                                    <th>Genbank Name</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -281,14 +281,14 @@ $this->pageTitle="GigaDB Dataset - DOI 10.5524/".$model->identifier." - ".$title
 
                                 foreach($sample_models as $sample)
                                 { ?>
-                                 <tr>
-                                    <td><?= $sample['linkName'] ?></td>
-                                    <td><?= $sample['common_name'] ?></td>
-                                    <td><?= $sample['scientific_name'] ?></td>
-                                    <td><?= $sample['displayAttr'] ?></td>
-                                    <td><?= $sample['taxonomy_link'] ?></td>
-                                    <td><?= $sample['genbank_name'] ?></td>
-                                </tr>
+                                    <tr>
+                                        <td><?= $sample['linkName'] ?></td>
+                                        <td><?= $sample['taxonomy_link'] ?></td>
+                                        <td><?= $sample['common_name'] ?></td>
+                                        <td><?= $sample['genbank_name'] ?></td>
+                                        <td><?= $sample['scientific_name'] ?></td>
+                                        <td><?= $sample['displayAttr'] ?></td>
+                                    </tr>
                                 <?php } ?>
 
                             </tbody>
@@ -576,11 +576,11 @@ document.addEventListener("DOMContentLoaded", function(event) { //This event is 
             "pagingType": "simple_numbers",
             "columns": [
                 { "visible": <?= in_array('name', $columns)? 'true' : 'false' ?> },
+                { "visible": <?= in_array('taxonomic_id', $columns)? 'true' : 'false' ?> },
                 { "visible": <?= in_array('common_name', $columns)? 'true' : 'false' ?> },
+                { "visible": <?= in_array('genbank_name', $columns)? 'true' : 'false' ?> },
                 { "visible": <?= in_array('scientific_name', $columns)? 'true' : 'false' ?> },
                 { "visible": <?= in_array('attribute', $columns)? 'true' : 'false' ?> },
-                { "visible": <?= in_array('taxonomic_id', $columns)? 'true' : 'false' ?> },
-                { "visible": <?= in_array('genbank_name', $columns)? 'true' : 'false' ?> },
               ]
         } );
 

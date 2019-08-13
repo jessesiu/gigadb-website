@@ -109,7 +109,7 @@ class DatasetController extends Controller
 
 
         //Sample
-        $columns = array('name', 'taxonomic_id', 'genbank_name', 'scientific_name', 'common_name', 'attribute');
+        $columns = array('name', 'taxonomic_id', 'scientific_name', 'attribute');
         $perPage = 10;
         if (isset($cookies['sample_setting'])) {
             //$ss = json_decode($cookies['sample_setting']);
