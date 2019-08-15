@@ -6,8 +6,13 @@
     }
 ?>
 <?php
-      $user_command = UserCommand::model()->findByAttributes(array("requester_id" => $model->id, "status" => "pending")) ;
-      $linked_author = Author::findAttachedAuthorByUserId($model->id) ;
+      if($model->id != null) {
+          $user_command = UserCommand::model()->findByAttributes(array("requester_id" => $model->id, "status" => "pending"));
+          $linked_author = Author::findAttachedAuthorByUserId($model->id);
+      } else {
+          $user_command = null;
+          $linked_author = null;
+      }
 
 ?>
 
