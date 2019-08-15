@@ -18,6 +18,7 @@ services:
     volumes:
       - ${APPLICATION}/assets:/var/www/assets
       - ${APPLICATION}/css:/var/www/css
+      - ${APPLICATION}/images:/var/www/images
       - le_config:/etc/letsencrypt
       - le_webrootpath:/var/www/.le
     networks:
