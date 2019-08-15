@@ -321,9 +321,6 @@ class DatasetViewContext implements Context
                 PHPUnit_Framework_Assert::assertTrue(
                     $this->minkContext->getSession()->getPage()->hasContent($row['Taxonomic ID']), "Taxonomic ID match"
                 );
-                PHPUnit_Framework_Assert::assertTrue(
-                    $this->minkContext->getSession()->getPage()->hasContent($row['Genbank Name']), "Genbank Name match"
-                );
             }
         }
         else {

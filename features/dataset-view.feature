@@ -282,8 +282,8 @@ Feature: a user visit the dataset page
 		Given I am not logged in to Gigadb web site
 		When I go to "/dataset/101001"
 		Then I should see "Sample" tab with table
-		| Sample ID 	| Common Name 	| Scientific Name 			| Sample Attributes | Taxonomic ID | Genbank Name |
-		| Pekin duck	| Mallard duck 	| Anas platyrhynchos 	| Estimated genome size:1.4 | 8839  |	mallard |
+		| Sample ID 	| Taxonomic ID 	| Scientific Name 			| Sample Attributes |
+		| Pekin duck	| 8839 	| Anas platyrhynchos 	| Estimated genome size:1.4 |
 
 	@ok @samples
 	Scenario: Samples - Call to Actions
@@ -302,7 +302,7 @@ Feature: a user visit the dataset page
 		Then I should see "Items per page:"
 		And I should see an "select.selectPageSize" element
 		And I should see "Common Name"
-		And the "common_name" checkbox is checked
+		And the "common_name" checkbox is unchecked
 		And I should see "Scientific Name"
 		And the "scientific_name" checkbox is checked
 		And I should see "Sample Attributes"
@@ -310,7 +310,7 @@ Feature: a user visit the dataset page
 		And I should see "Taxonomic ID"
 		And the "taxonomic_id" checkbox is checked
 		And I should see "Genbank Name"
-		And the "genbank_name" checkbox is checked
+		And the "genbank_name" checkbox is unchecked
 		And I should see a button "Save changes" with no link
 		And I should see a button "Close" with no link
 
@@ -321,12 +321,12 @@ Feature: a user visit the dataset page
 		When I follow "Sample"
 		And I have set pageSize to "5" on "samples_table_settings"
 		Then I should see "Sample" tab with table
-		| Sample ID 	| Common Name 	| Scientific Name | Sample Attributes | Taxonomic ID | Genbank Name |
-		| Ssol. cltw.NI.13 	| |	Schistocephalus solidus |	Description:short PE reads| 70667 | |
-		| Ssol.cltw.A.03 	| |	Schistocephalus solidus |	Description:short PE reads| 70667 | |
-		| Ssol.cltw.A.07 	| |	Schistocephalus solidus |	Description:short PE reads| 70667 | |
-		| Ssol.cltw.A.12 	| |	Schistocephalus solidus |	Description:long PE reads | 70667 | |
-		| Ssol.cltw.I.01 	| |	Schistocephalus solidus |	Description:short PE reads| 70667 | |
+		| Sample ID 	| Taxonomic ID	| Scientific Name | Sample Attributes |
+		| Ssol. cltw.NI.13 	| 70667 |	Schistocephalus solidus |	Description:short PE reads|
+		| Ssol.cltw.A.03 	| 70667 |	Schistocephalus solidus |	Description:short PE reads|
+		| Ssol.cltw.A.07 	| 70667 |	Schistocephalus solidus |	Description:short PE reads|
+		| Ssol.cltw.A.12 	| 70667 |	Schistocephalus solidus |	Description:long PE reads |
+		| Ssol.cltw.I.01 	| 70667 |	Schistocephalus solidus |	Description:short PE reads|
 		And I sould not see "Sample" tab with table
 		| Sample ID 	 |
 		| Ssol.cltw.I.67 |
@@ -338,14 +338,12 @@ Feature: a user visit the dataset page
 		When I follow "Sample"
 		And I follow "samples_table_settings"
 		And I wait "1" seconds
-		And I uncheck "common_name"
+		And I check "common_name"
 		And I follow "save-samples-settings"
 		Then I should see "Sample" tab with table
-		| Sample ID  	| Scientific Name 			| Sample Attributes | Taxonomic ID | Genbank Name |
-		| Pekin duck 	| Anas platyrhynchos 	| Estimated genome size:1.4 | 8839  |	mallard |
-		And I sould not see "Sample" tab with table
-		| Common Name 	 |
-		| Mallard duck |
+		| Sample ID  	| Taxonomic ID 			| Common Name | Scientific Name | Sample Attributes |
+		| Pekin duck 	| 8839 	| Mallard duck | Anas platyrhynchos	| Estimated genome size:1.4  |
+
 
 	@ok @samples @javascript
 	Scenario: Samples - Pagination
@@ -357,7 +355,8 @@ Feature: a user visit the dataset page
 		# And I take a screenshot named "Files tab before clicking pager"
 		And I follow "2"
 		Then I should see "Sample" tab with table
-		| Sample ID 	| Common Name 	| Scientific Name | Sample Attributes | Taxonomic ID | Genbank Name |
-		| Ssol.cltw.I.67 	| |	Schistocephalus solidus |	Description:short PE reads | 70667 | |
-		| Ssol.cltw.I.98.1 	| |	Schistocephalus solidus |	Description:short PE reads | 70667 | |
+		| Sample ID 	| Taxonomic ID 	| Scientific Name | Sample Attributes |
+		| Ssol.cltw.I.67 	| 70667 |	Schistocephalus solidus |	Description:short PE reads |
+		| Ssol.cltw.I.98.1 	| 70667 |	Schistocephalus solidus |	Description:short PE reads |
+
 
