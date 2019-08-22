@@ -11,7 +11,7 @@ services:
       - assets:/var/www/assets
       - le_config:/etc/letsencrypt
       - le_webrootpath:/var/www/.le
-      - captchas:/var/www/images/tempcaptcha
+      - images:/var/www/images
     ports:
       - "${STAGING_PUBLIC_HTTP_PORT}:80"
       - "${STAGING_PUBLIC_HTTPS_PORT}:443"
@@ -42,7 +42,7 @@ services:
       YII2_PATH: ${YII2_PATH}
     volumes:
       - assets:/var/www/assets
-      - captchas:/var/www/images/tempcaptcha
+      - images:/var/www/images
     expose:
       - "9000"
     networks:
@@ -84,6 +84,6 @@ volumes:
   assets:
   le_config:
   le_webrootpath:
-  captchas:
+  images:
 
 
