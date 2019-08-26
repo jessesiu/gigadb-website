@@ -18,6 +18,23 @@ class Util {
 	}
     }
 
+    public static function clearUserInput($text) {
+
+        $p = new CHtmlPurifier();
+
+        $p->options = array('URI.AllowedSchemes'=>array(
+
+            'http' => true,
+
+            'https' => true,
+
+        ));
+
+        $text = $p->purify($text);
+
+        return $text;
+    }
+
     public static function getDois() {
         $dois = Yii::app()->db->createCommand()
                 ->select("id, identifier")

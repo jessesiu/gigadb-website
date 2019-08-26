@@ -41,6 +41,7 @@ class DatasetController extends Controller
         $form = new SearchForm;  // Use for Form
         $dataset = new Dataset; // Use for auto suggestion
         $this->layout='new_column2';
+        $id = Util::clearUserInput($id);
         $model = Dataset::model()->find("identifier=?", array($id));
         if (!$model) {
             $form = new SearchForm;
