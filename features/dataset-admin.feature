@@ -14,6 +14,7 @@ Scenario: form loading with all necessary fields
 	Then I should see a form element labelled "Submitter *"
 	And I should see a form element labelled "Curator Id"
 	And I should see a form element labelled "Manuscript Id"
+	And I should see a form element labelled "Handing Editor"
 	And I should see a form element labelled "Upload Status"
 	And I should see a form element labelled "Workflow"
 	And I should see a form element labelled "Epigenomic"
