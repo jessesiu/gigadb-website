@@ -55,6 +55,13 @@ $cs->registerCssFile('/css/jquery.tag-editor.css');
                         </div>
                     </div>
                     <div class="control-group">
+                        <?php echo $form->labelEx($model,'handing_editor',array('class'=>'control-label')); ?>
+                        <div class="controls">
+                            <?php echo $form->textField($model,'handing_editor',array('size'=>60,'maxlength'=>200)); ?>
+                            <?php echo $form->error($model,'handing_editor'); ?>
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <?php echo $form->labelEx($model,'upload_status',array('class'=>'control-label')); ?>
                         <div class="controls">
                             <?php echo $form->dropDownList($model,'upload_status',Dataset::$statusList,
