@@ -22,7 +22,7 @@ $this->pageTitle='GigaDB - About';
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-target="#panel01"  aria-expanded="true" aria-controls="panel01">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel01" aria-expanded="false" aria-controls="panel01">
                                     What is <em>GigaDB</em>?    
                                     </a>
                                 </h4>
@@ -36,7 +36,7 @@ $this->pageTitle='GigaDB - About';
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-target="#panel02" aria-expanded="false" aria-controls="panel02">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel02" aria-expanded="false" aria-controls="panel02">
                                     What journals are integrated with <em>GigaDB</em>?    
                                     </a>
                                 </h4>
@@ -171,7 +171,7 @@ $this->pageTitle='GigaDB - About';
                                 <div class="panel-body">
                                     <p>All data submissions should be approved before being started, please contact <a href="mailto:editorial@gigasciencejournal.com">editorial@gigasciencejournal.com</a> to discuss your article and associated data with our editors.Once approved, there are two possible routes to provide the metadata about your data:
                                     <ol>
-                                        <li> use the online <a href="http://gigadb.org/datasetSubmission/upload">submission wizard</a> - this is a good option for datasets with few authors, and few files. The wizard currently does not have functionality to upload tabular information so everything must be typed in individually.</li>
+                                        <li> use the online <a href="http://gigadb.org/dataset/upload">submission wizard</a> - this is a good option for datasets with few authors, and few files. The wizard currently does not have functionality to upload tabular information so everything must be typed in individually.</li>
                                         <li> use the template spreadsheet (excel, but compatible with open office too) downloadable from <a href="http://www.google.com/url?q=http%3A%2F%2Fgigadb.org%2Ffiles%2FGigaDBUploadForm.xls&amp;sa=D&amp;sntz=1&amp;usg=AFrqEzf6cPyp-vGxxVTE9OEq2TPsJqU7fg">here </a>- This option is better where there are multiple authors and/or multiple files and/or samples. NB. the spreadsheet contains macros, but these are only to allow the forward and back buttons to work so can be disabled, you can just click the relevant tabs at the bottom of the spreadsheet.</li>
                                     </ol>
                                     <p>For more details on submitting using the Spreadsheet please see here.</p>
@@ -532,7 +532,7 @@ Files:
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel35" aria-expanded="false" aria-controls="panel35">
-                                        Why do you request so many sample attributes?
+                                    Why do you request so many sample attributes?    
                                     </a>
                                 </h4>
                             </div>
@@ -546,7 +546,7 @@ Files:
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel36" aria-expanded="false" aria-controls="panel36">
-                                        Why is the directory structure missing from the file table view on my dataset page?
+                                    Why is the directory structure missing from the file table view on my dataset page?   
                                     </a>
                                 </h4>
                             </div>
@@ -560,14 +560,14 @@ Files:
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel37" aria-expanded="false" aria-controls="panel37">
-                                        What should I do if I accidentally identify an individual from anonymized human (meta)data within a dataset?
+                                    What should I do if I accidentally identify an individual from anonymized human (meta)data within a dataset?   
                                     </a>
                                 </h4>
                             </div>
                             <div id="panel37" class="panel-collapse collapse" role="tabpanel">
                                 <div class="panel-body">
                                     <p>If you inadvertently discover the identity of any patient/individual, then (a) you agree that you will make no use of this knowledge, (b) that you will notify us (<a href="mailto:database@gigasciencejournal.com">database@gigasciencejournal.com</a>) of the incident, and (c) that you will inform no one else of the discovered identity.
-                                        We will assess the specific case and remove/reduce the amount of metadata available for the subjects involved, and inform the data owners/submitters of the situation.</p>
+We will assess the specific case and remove/reduce the amount of metadata available for the subjects involved, and inform the data owners/submitters of the situation.</p>
                                 </div>
                             </div>
                         </div>
@@ -575,7 +575,7 @@ Files:
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel38" aria-expanded="false" aria-controls="panel38">
-                                        What curation do you carry out?
+                                    What curation do you carry out?  
                                     </a>
                                 </h4>
                             </div>
@@ -589,7 +589,7 @@ Files:
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel39" aria-expanded="false" aria-controls="panel39">
-                                        What procedures are in place to ensure data integrity?
+                                    What procedures are in place to ensure data integrity?
                                     </a>
                                 </h4>
                             </div>
@@ -604,13 +604,79 @@ Files:
                             <div class="panel-heading" role="tab">
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel40" aria-expanded="false" aria-controls="panel40">
-                                        What data storage procedures do you follow?
+                                    What data storage procedures do you follow?
                                     </a>
                                 </h4>
                             </div>
                             <div id="panel40" class="panel-collapse collapse" role="tabpanel">
                                 <div class="panel-body">
-                                    <p>GigaDB data is currently hosted in China National GeneBank (CNGB) servers in Shenzhen, who promise persistent and stable storage. CNGB is a central government and ShenZhen government funded research organisation tasked with supporting public welfare, innovation and scientific research. These servers are built on the Alibaba Cloud Elastic Compute Service (ECS), with Anti-DDoS protection to safeguard the data. This infrastructure is covered by the Alibaba service level agreements. Regular data backup uses the Alibaba Cloud Object Storage Service (OSS) to backup and archive all data in the data repository, and automatically storing two copies of data in different locations. As well as providing rapid data recovery. We ensure data files provided are not corrupt in transfer by use of md5 checksums whenever files are received or moved (see the data integrity FAQ for more). As full members of DataCite, CC0 metadata is sent to them upon public release.</p>
+                                    <p>GigaDB data is currently hosted in <a href="https://www.cngb.org/aboutUs.html?i18nlang=en_US">China National GeneBank (CNGB)</a> servers in Shenzhen, who promise persistent and stable storage. CNGB is a central government and Shenzhen government funded research organisation tasked with supporting public welfare, innovation and scientific research. These servers are built on the Alibaba Cloud Elastic Compute Service (ECS), with Anti-DDoS protection to safeguard the data. This infrastructure is covered by the Alibaba service level agreements. Regular data backup uses the Alibaba Cloud Object Storage Service (OSS) to backup and archive all data in the data repository, and automatically storing two copies of data in different locations (please see Alibaba Cloud help pages for more details <a href="https://www.alibabacloud.com/help/">https://www.alibabacloud.com/help/</a>). As well as providing rapid data recovery. We ensure data files provided are not corrupt in transfer by use of md5 checksums whenever files are received or moved (see the data integrity FAQ  for more). As full members of DataCite, CC0 metadata is sent to them upon public release and is discoverable and searchable via <a href="search.datacite.org">search.datacite.org</a> and other linked data search indexes.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel41" aria-expanded="false" aria-controls="panel41">
+                                        What's the relationship between <i>GigaScience</i> and <em>GigaDB</em>?
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="panel41" class="panel-collapse collapse" role="tabpanel">
+                                <div class="panel-body">
+                                    <p>GigaDB - is the data repository. <i>GigaScience</i> - is the journal that created the GigaDB platform and has been used for the initial test case application of GigaDB.
+                                    Additionally other organisations involved with <i>GigaScience</i> and GigaDB include:
+                                        BGI Group - formerly the Beijing Genomics Institute, but now based in Shenzhen and known as just BGI. BGI is the institution that has provided all the funding for the journal and GigaDB development to date.</p>
+                                    <p>Oxford University Press (OUP) -  the publisher with which BGI currently has a partnership to run <i>GigaScience</i> journal.</p>
+                                    <p>BGI Hong Kong Tech Ltd. - A member of the BGI group of companies that is a legal entity in Hong Kong, this is where the metadata is hosted, and most of the GigaDB staff are employed.</p>
+                                    <p><a href="https://www.cngb.org/aboutUs.html?i18nlang=en_US">CNGB (China National GeneBank)</a> - A government funded institute constructed by BGI and administered by the Development and Reform Commission of Shenzhen Municipality, that provides most of the informatics infrastructure (storage) for GigaDB.
+                                        Aliyun - A Chinese cloud services provider that CNGB have contracted out their IT infrastructure to, and is currently hosting the GigaDB’s data in their servers
+                                    </p>
+                                </div>
+                            </div>
+			    </div>	
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel42" aria-expanded="false" aria-controls="panel42">
+                                            What is the long term preservation plan for <em>GigaDB</em>?
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="panel42" class="panel-collapse collapse" role="tabpanel">
+                                    <div class="panel-body">
+                                        <p>The agreements with CNGB and BGI ensures GigaDB will be actively maintained for the foreseeable future. The linking of GigaDB to datasets accompanying open access journal articles with included article and data processing charges to help cover storage and curation costs also provides a model to enable the sustained growth of GigaDB. </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel43" aria-expanded="false" aria-controls="panel43">
+                                            What metadata do you collect?
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="panel43" class="panel-collapse collapse" role="tabpanel">
+                                    <div class="panel-body">
+                                        <p>We follow a variety of standards for metadata collection, primarily the DataCite specification (<a href="https://schema.datacite.org/">https://schema.datacite.org/</a>) for the dataset level metadata and the <a href="https://press3.mcs.anl.gov/gensc/mixs/">Genomics Standards Consortium minimal information standards</a> for the sample level metadata. We also follow community norms for file metadata. Additionally all dataset pages are marked up with Schema.org compliant metadata to facilitate discovery by generic web search engines such as Google.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel44" aria-expanded="false" aria-controls="panel44">
+                                            Does <em>GigaDB</em> use community-supported Open Source software?
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="panel44" class="panel-collapse collapse" role="tabpanel">
+                                    <div class="panel-body">
+                                        <p>GigaDBs code is open source (available on GitHub <a href="https://github.com/gigascience/gigadb-website">https://github.com/gigascience/gigadb-website</a>), based on PostgreSQL database and Yii PHP frameworks, and we utilise and integrate with a growing number of open source plugins and widgets. e.g. Jbrowse, a community supported genome browser. All of the servers run on Centos 7, which is also open source.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -619,4 +685,14 @@ Files:
                
             </div>
         </div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    if(location.hash != null && location.hash != ""){
+        $('.collapse').removeClass('in');
+        $(location.hash + '.collapse').collapse('show');
+    }
+});
+</script>
+
 
