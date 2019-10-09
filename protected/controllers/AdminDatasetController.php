@@ -141,7 +141,7 @@ class AdminDatasetController extends Controller
         ));
         if (isset($_POST['Dataset'])) {
             if (isset($_POST['Dataset']['upload_status']) && $_POST['Dataset']['upload_status'] != $model->upload_status) {
-                CurationLog::createlog($_POST['Dataset']['upload_status'], $id);
+                CurationLog::createlog($_POST['Dataset']['upload_status'], $id, Yii::app()->user->id);
             }
             if (isset($_POST['Dataset']['submitter_id']) && $_POST['Dataset']['submitter_id'] != $model->submitter_id) {
                 CurationLog::createlog_change_submitter($_POST['Dataset']['submitter_id'], $id);

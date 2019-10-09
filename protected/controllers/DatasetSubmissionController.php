@@ -186,11 +186,11 @@ EO_MAIL;
             if (isset($_POST['file'])) {
                 $fileLink .= 'Files:<br/>';
                 $fileLink = $link = Yii::app()->params['home_url'] . "/datasetSubmission/updateFile/?id=" . $dataset_id;
-                $dataset->upload_status = 'Pending';
-                CurationLog::createlog($dataset->upload_status, $dataset->id);
+                $dataset->upload_status = 'AuthorReview';
+                CurationLog::createlog($dataset->upload_status, $dataset->id, Yii::app()->user->id);
             } else {
-                $dataset->upload_status = 'Request';
-                CurationLog::createlog($dataset->upload_status, $dataset->id);
+                $dataset->upload_status = 'Submitted';
+                CurationLog::createlog($dataset->upload_status, $dataset->id, Yii::app()->user->id);
             }
 
             if (!$dataset->save()) {
