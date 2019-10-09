@@ -8,7 +8,7 @@ $dataset = Dataset::model()->find('id=:dataset_id', array(':dataset_id'=>$datase
 
 <br>
 
-<a href="/curationlog/create/id/<?php echo $dataset_id ?>" class="btn">Create New Log</a>
+<a href="/CurationLog/create/id/<?php echo $dataset_id ?>" class="btn">Create New Log</a>
 
 <div class="clear"></div>
 
@@ -28,13 +28,13 @@ $dataset = Dataset::model()->find('id=:dataset_id', array(':dataset_id'=>$datase
 			'class'=>'CButtonColumn',
                      'buttons'=>array(
                 'view' => array(
-                        'url' => 'Yii::app()->createUrl("curationlog/view" , array("id" => $data->id))'
+                        'url' => 'Yii::app()->createUrl("CurationLog/view" , array("id" => $data->id))'
                         ),
                 'update' => array(
-                        'url' => 'Yii::app()->createUrl("curationlog/update" , array("id" => $data->id))'
+                        'url' => 'Yii::app()->createUrl("CurationLog/update" , array("id" => $data->id))'
                         ),   
                 'delete' => array(
-                        'url' => 'Yii::app()->createUrl("curationlog/delete" , array("id" => $data->id))'
+                        'url' => 'Yii::app()->createUrl("CurationLog/delete" , array("id" => $data->id))'
                         )         
                 ),
 		),
